@@ -1,8 +1,12 @@
-export function FilterComponent(props) {
+const type = {
+
+}
+
+export function FilterComponent(props : any) {
     const value = props.value
     const handleInput = props.handleInput
 
-    const handleChange = event => {
+    const handleChange = (event : any) => {
         handleInput(event.target.value);
 
         console.log('value is:', event.target.value);

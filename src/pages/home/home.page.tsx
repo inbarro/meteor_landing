@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, {useEffect, useState} from 'react';
 import {MeteorListComponent} from "../../components/MeteorList.component";
 import {FilterComponent} from "../../components/Filter.component";
@@ -20,11 +21,11 @@ export function Home() {
     },[]);
 
     useEffect( () => {
-        const newMeteors = meteors.filter( meteor =>  parseInt(meteor.mass) > parseInt(filterValue) )
+        const newMeteors = meteors.filter( (meteor: any) =>  parseInt(meteor.mass) > parseInt(filterValue) )
         setFilteredMeteors(newMeteors)
     },[filterValue]);
 
-    const handleFilterInput = (newFilerValue) => {
+    const handleFilterInput = (newFilerValue: any) => {
         setFilterValue(newFilerValue)
     }
 
