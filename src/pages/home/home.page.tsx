@@ -22,19 +22,22 @@ export function Home() {
             const newMeteors = await getAllMeteors()
             setMeteors(newMeteors)
             setYearsMeteors(newMeteors)
+            setFilterValue('')
             setYearsAndMassMeteors(newMeteors)
-            setNotFoundMessage(false)
+            // setNotFoundMessage(false)
         })();
     },[]);
 
-    // useEffect( () => {
-    //     setNotFoundMessage(NotFoundMessage)
-    // },[NotFoundMessage]);
+    useEffect( () => {
+        setNotFoundMessage(NotFoundMessage)
+    },[NotFoundMessage]);
 
     useEffect( () => {
         (async () => {
             const newMeteors = await getAllMeteorsInYear(year)
             setYearsMeteors(newMeteors)
+            setYearsAndMassMeteors(newMeteors)
+
         })();
     },[year]);
 
@@ -46,12 +49,12 @@ export function Home() {
             const newFilterYear = newMeteors2[0]?.year.split("-")[0]
             handleYearSelect(newFilterYear)
             newMeteors2 = newMeteors2.filter( (meteor: any) => ( meteor.year) === (newMeteors2[0].year) )
-            // setNotFoundMessage(true)
+            setNotFoundMessage(true)
             setYearsAndMassMeteors(newMeteors2)
         }
         else {
             setYearsAndMassMeteors(newMeteors)}
-    },[yearsAndMassMeteors]);
+    },[filterValue]);
 
 
 

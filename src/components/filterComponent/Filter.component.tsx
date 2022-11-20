@@ -7,6 +7,8 @@ export function FilterComponent(props : any) {
     const handleInput = props.handleInput
 
     const handleChange = (event : any) => {
+        console.log("Field changes")
+        console.log(event.target.value)
         handleInput(event.target.value);
 
         console.log('value is:', event.target.value);
