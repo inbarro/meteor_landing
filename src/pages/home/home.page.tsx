@@ -1,7 +1,8 @@
 // @ts-ignore
 import React, {useEffect, useState} from 'react';
 import {MeteorListComponent} from "../../components/MeteorList.component";
-import {FilterComponent} from "../../components/Filter.component";
+import {YearFilterComponent} from '../../components/yearFilterComponent/yearFilter.component'
+import {FilterComponent} from "../../components/filterComponent/Filter.component";
 import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
 
 
@@ -34,6 +35,7 @@ export function Home() {
             <h2>
                 Home
             </h2>
+            <YearFilterComponent/>
             <FilterComponent value={filterValue} handleInput={handleFilterInput}></FilterComponent>
             <MeteorListComponent meteors={filteredMeteors} filterValue={filterValue}/>
         </div>

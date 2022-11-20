@@ -3,22 +3,30 @@ import {NASA_URL, YEAR_OFFSET} from "../../utils/CONSTS";
 
 export const getAllMeteors = async () => {
     const res = await get(NASA_URL, {} )
-    console.log(res.data)
     return res.data
 }
 
 export const getAllMeteorsInYear = async (year: string) => {
     const res = await get(NASA_URL, {year: year+YEAR_OFFSET} )
-
-    console.log(res.data)
     return res.data
 }
 
 export const getLandingYears = async () => {
-    const res= await get(NASA_URL, {})
-    const years = res.data.map((row: any) => {return row.year})
-    console.log (years)
-    return years
+    let id = 0
+    let res= (await get(NASA_URL, {})).data
+    let exist_years = new Set();
+    res = res.map((row: any) => {
+        let year =  row.year ? row.year : ''
+        let splitted_year = year.split('-')[0]
+        if (!exist_years.has(splitted_year))
+        {
+            exist_years.add(splitted_year)
+            return {name:splitted_year, id: id}
+        }
+    })
+    res.sort((a: any, b: any) => a.name - b.name);
+
+    return res
 }
 
 
