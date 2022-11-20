@@ -9,25 +9,39 @@ import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/ser
 export function Home() {
 
     const [meteors, setMeteors] = useState([])
-    const [filteredMeteors, setFilteredMeteors] = useState([])
+    const [yearsMeteors, setYearsMeteors] = useState([])
+    const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
     const [filterValue, setFilterValue] = useState('')
+    const [year, setYear] = useState('')
 
 
     useEffect( () => {
         (async () => {
             const newMeteors = await getAllMeteors()
             setMeteors(newMeteors)
-            setFilteredMeteors(newMeteors)
+            setYearsMeteors(newMeteors)
+            setYearsAndMassMeteors(newMeteors)
         })();
     },[]);
 
     useEffect( () => {
-        const newMeteors = meteors.filter( (meteor: any) => ( parseInt(meteor.mass)) > (parseInt(filterValue)|| 0) )
-        setFilteredMeteors(newMeteors)
-    },[filterValue]);
+        (async () => {
+            const newMeteors = await getAllMeteorsInYear(year)
+            setYearsMeteors(newMeteors)
+        })();
+    },[year]);
+
+    useEffect( () => {
+        const newMeteors = yearsMeteors.filter( (meteor: any) => ( parseInt(meteor.mass)) > (parseInt(filterValue)|| 0) )
+        setYearsAndMassMeteors(newMeteors)
+    },[yearsAndMassMeteors]);
 
     const handleFilterInput = (newFilerValue: any) => {
         setFilterValue(newFilerValue)
+    }
+
+    const handleYearSelect = (year: any) => {
+        setYear(year)
     }
 
     return (
@@ -35,9 +49,9 @@ export function Home() {
             <h2>
                 Home
             </h2>
-            <YearFilterComponent/>
+            <YearFilterComponent handleYearSelect={handleYearSelect}/>
             <FilterComponent value={filterValue} handleInput={handleFilterInput}></FilterComponent>
-            <MeteorListComponent meteors={filteredMeteors} filterValue={filterValue}/>
+            <MeteorListComponent meteors={yearsAndMassMeteors} filterValue={filterValue}/>
         </div>
 
     );

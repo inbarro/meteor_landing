@@ -7,8 +7,7 @@ const type = {
 }
 
 export function YearFilterComponent(props : any) {
-    const value = props.value
-    const handleInput = props.handleInput
+    const handleYearSelect = props.handleYearSelect
     const [years, setYears] = useState([])
 
     useEffect( () => {
@@ -32,7 +31,8 @@ export function YearFilterComponent(props : any) {
 
     const handleOnSelect = (year:any) => {
         // the item selected
-        console.log(year)
+        handleYearSelect(year.name)
+        console.log(year.name)
     }
 
     const handleOnFocus = () => {
