@@ -1,4 +1,4 @@
-export function MeteorComponent(props) {
+export function MeteorComponent(props : any) {
     const meteor = props.meteor
     return (
         <div>

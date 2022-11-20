@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {MeteorListComponent} from "../../components/MeteorList.component";
 import {FilterComponent} from "../../components/Filter.component";
-import {getAllMeteors, getAllMeteorsInYear} from '../../api/services/meteorLanding.service'
+import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
 
 
 export function Home() {
@@ -21,7 +21,7 @@ export function Home() {
     },[]);
 
     useEffect( () => {
-        const newMeteors = meteors.filter( (meteor: any) =>  parseInt(meteor.mass) > parseInt(filterValue) )
+        const newMeteors = meteors.filter( (meteor: any) => ( parseInt(meteor.mass)) > (parseInt(filterValue)|| 0) )
         setFilteredMeteors(newMeteors)
     },[filterValue]);
 
