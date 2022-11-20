@@ -1,6 +1,10 @@
 export function MeteorComponent(props) {
-    const name = props.name
+    const meteor = props.meteor
     return (
-        <p>name : {name}</p>
-    );
+        <div>
+            <div>name : {meteor.name}</div>
+            <div>year : {meteor.year}</div>
+            <div>mass: {meteor.mass}</div>
+        </div>
+);
 }

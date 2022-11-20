@@ -1,6 +1,7 @@
-import {MeteorListComponent} from "../../components/MeteorList.component";
-import {getAllMeteors} from '../../api/services/meteorLanding.service'
 import React, {useEffect, useState} from 'react';
+import {MeteorListComponent} from "../../components/MeteorList.component";
+import {FilterComponent} from "../../components/Filter.component";
+import {getAllMeteors, getAllMeteorsInYear} from '../../api/services/meteorLanding.service'
 
 
 export function Home() {
@@ -9,25 +10,35 @@ export function Home() {
 
 
     const [meteors, setMeteors] = useState([]);
+    const [filterValue,setFilterValue] = useState('')
+
 
     useEffect( () => {
-        let newMeteors = []
-        const getMeteors = async () => {
-            newMeteors = await getAllMeteors()
+        (async () => {
+            const newMeteors = await getAllMeteors()
             setMeteors(newMeteors)
-        }
-        getMeteors().catch(console.error)
-    });
+        })();
+    },[]);
 
-    // const meteors = await getAllMeteorsllMeteors()
+    useEffect( () => {
+        const newMeteors = meteors.filter( meteor =>  parseInt(meteor.mass) > parseInt(filterValue) )
+        console.log(newMeteors)
+        setMeteors(newMeteors)
+    },[filterValue]);
+
+    const handleFilterInput = (newFilerValue) => {
+        setFilterValue(newFilerValue)
+
+    }
 
     return (
-        <>
+        <div>
             <h2>
                 Home
             </h2>
-            <MeteorListComponent meteors ={meteors}/>
-        </>
+            <FilterComponent value={filterValue} handleInput={handleFilterInput}></FilterComponent>
+            <MeteorListComponent meteors={meteors} filterValue={filterValue}/>
+        </div>
 
     );
 }
