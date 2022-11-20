@@ -13,6 +13,8 @@ export function Home() {
     const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
     const [filterValue, setFilterValue] = useState('')
     const [year, setYear] = useState('')
+    const [NotFoundMessage, setNotFoundMessage] = useState(false)
+
 
 
     useEffect( () => {
@@ -21,8 +23,13 @@ export function Home() {
             setMeteors(newMeteors)
             setYearsMeteors(newMeteors)
             setYearsAndMassMeteors(newMeteors)
+            setNotFoundMessage(false)
         })();
     },[]);
+
+    // useEffect( () => {
+    //     setNotFoundMessage(NotFoundMessage)
+    // },[NotFoundMessage]);
 
     useEffect( () => {
         (async () => {
@@ -33,8 +40,21 @@ export function Home() {
 
     useEffect( () => {
         const newMeteors = yearsMeteors.filter( (meteor: any) => ( parseInt(meteor.mass)) > (parseInt(filterValue)|| 0) )
-        setYearsAndMassMeteors(newMeteors)
+        if (newMeteors.length === 0)
+        {
+            let newMeteors2:any = meteors.filter( (meteor: any) => ( parseInt(meteor.mass)) >= (parseInt(filterValue)|| 0) )
+            const newFilterYear = newMeteors2[0]?.year.split("-")[0]
+            handleYearSelect(newFilterYear)
+            newMeteors2 = newMeteors2.filter( (meteor: any) => ( meteor.year) === (newMeteors2[0].year) )
+            // setNotFoundMessage(true)
+            setYearsAndMassMeteors(newMeteors2)
+        }
+        else {
+            setYearsAndMassMeteors(newMeteors)}
     },[yearsAndMassMeteors]);
+
+
+
 
     const handleFilterInput = (newFilerValue: any) => {
         setFilterValue(newFilerValue)
@@ -51,6 +71,7 @@ export function Home() {
             </h2>
             <YearFilterComponent handleYearSelect={handleYearSelect}/>
             <FilterComponent value={filterValue} handleInput={handleFilterInput}></FilterComponent>
+            <h2 hidden={NotFoundMessage}> The mass was not found, jumping to first-year where there is a mass that fits the criteria</h2>
             <MeteorListComponent meteors={yearsAndMassMeteors} filterValue={filterValue}/>
         </div>
 

@@ -3,7 +3,7 @@ import {NASA_URL, YEAR_OFFSET} from "../../utils/CONSTS";
 
 export const getAllMeteors = async () => {
     const res = await get(NASA_URL, {} )
-    return res.data
+    return res.data.sort((a: any, b:any) => a.year < b.year)
 }
 
 export const getAllMeteorsInYear = async (year: string) => {
