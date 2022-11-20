@@ -1,8 +1,8 @@
 const axios = require('axios').default;
 
 
- export const gaaet = async (url) => {
-     const t =  await axios.get(url)
+ export const get = async (url, params) => {
+     const t =  await axios.get(url, { params })
      console.log(t)
      return t
  }
