@@ -4,7 +4,7 @@ import {MeteorListComponent} from "../../components/MeteorListComponenmt/MeteorL
 import {YearFilterComponent} from '../../components/yearFilterComponent/yearFilter.component'
 import {FilterComponent} from "../../components/filterComponent/Filter.component";
 import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
-
+import {TitlesComponent} from "../../components/TitlesComponent/TitlesComponent"
 
 export function Home() {
 
@@ -72,6 +72,7 @@ export function Home() {
 
     return (
         <div>
+            <TitlesComponent/>
             <YearFilterComponent handleYearSelect={handleYearSelect}/>
             <FilterComponent value={massFilterValue} handleInput={handleFilterInput}></FilterComponent>
             {showNotFoundMessage && <h2> The mass was not found, jumping to first-year where there is a mass that fits the criteria</h2>}

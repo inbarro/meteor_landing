@@ -48,6 +48,7 @@ export function YearFilterComponent(props : any) {
 
     return (
         <div className={'wrapper'}>
+           
             <div className={'filterTitle'}>Filter By Year</div>
 
             <ReactSearchAutocomplete
