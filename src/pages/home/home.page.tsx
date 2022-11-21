@@ -1,6 +1,6 @@
 // @ts-ignore
 import React, {useEffect, useState} from 'react';
-import {MeteorListComponent} from "../../components/MeteorList.component";
+import {MeteorListComponent} from "../../components/MeteorListComponenmt/MeteorList.component";
 import {YearFilterComponent} from '../../components/yearFilterComponent/yearFilter.component'
 import {FilterComponent} from "../../components/filterComponent/Filter.component";
 import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
@@ -72,9 +72,6 @@ export function Home() {
 
     return (
         <div>
-            <h2>
-                Home
-            </h2>
             <YearFilterComponent handleYearSelect={handleYearSelect}/>
             <FilterComponent value={massFilterValue} handleInput={handleFilterInput}></FilterComponent>
             {showNotFoundMessage && <h2> The mass was not found, jumping to first-year where there is a mass that fits the criteria</h2>}

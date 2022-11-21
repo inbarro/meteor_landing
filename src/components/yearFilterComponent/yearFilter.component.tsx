@@ -1,3 +1,4 @@
+import './yearsFilter.component.css'
 import React, {useEffect, useState} from 'react';
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import {getLandingYears} from "../../api/services/meteorLanding.service";
@@ -19,8 +20,6 @@ export function YearFilterComponent(props : any) {
 
 
     const handleOnSearch = (string: string, results:any) => {
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
         console.log(string, results)
     }
 
@@ -42,14 +41,14 @@ export function YearFilterComponent(props : any) {
     const formatResult = (item:any) => {
         return (
             <>
-                <span style={{ display: 'block', textAlign: 'left' }}>{item.name}</span>
+                <span>{item.name}</span>
             </>
         )
     }
 
     return (
-        <div className={'filterWrapper'}>
-            <div>filer</div>
+        <div className={'wrapper'}>
+            <div className={'filterTitle'}>Filter By Year</div>
 
             <ReactSearchAutocomplete
                 items={years}

@@ -1,0 +1,27 @@
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between ;
+   align-items: center;
+}
+
+.mainTitle {
+    font-size: 40px;
+    font-family: Aharoni;
+    align-items: center;
+    color: #282c34;
+}
+
+
+.secondTitle {
+    font-size: 30px;
+    font-family: Aharoni;
+    align-items: center;
+    color: #2e4779;
+
+}
+.meteor-list {
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}

@@ -1,3 +1,5 @@
+import './filter.component.css'
+
 const type = {
 
 }
@@ -15,11 +17,11 @@ export function FilterComponent(props : any) {
     };
     return (
         <div className={'filterWrapper'}>
-            <div>filer</div>
+            <div>Filter By Mass</div>
             <input
                 type={'text'}
             className={'filterInput'}
-            onChange={handleChange} //TODO
+            onChange={handleChange}
             />
         </div>
     );
