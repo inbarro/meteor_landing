@@ -1,8 +1,8 @@
 import {meteorData} from './interfaces'
 
-export const getAllMeteorsYears = (meteors: Array<meteorData>) => {
+export const getAllMeteorsFormattedYears = (meteors: Array<meteorData>) => {
     return meteors.map(meteor => {
-        return meteor.year
+        return meteor?.year.split('-')[0]
     })
 }
 

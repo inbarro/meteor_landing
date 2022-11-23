@@ -5,7 +5,7 @@ import {FilterComponent} from "../../components/filterComponent/filter.component
 import {getAllMeteors, } from '../../api/services/meteorLanding.service'
 import {TitlesComponent} from "../../components/TitlesComponent/TitlesComponent"
 import NoDataMessage from '../../components/noDataMessageComponent/noDataMessage.Component'
-import {getAllMeteorsYears, pickYearMeteors, yearsSelectFormatting} from '../../helpers'
+import {getAllMeteorsFormattedYears, pickYearMeteors, yearsSelectFormatting} from '../../helpers'
 import {option} from '../../interfaces'
 
 export function Home() {
@@ -21,7 +21,7 @@ export function Home() {
     useEffect( () => {
         (async () => {
             const newMeteors = await getAllMeteors()
-            setYears(getAllMeteorsYears(newMeteors))
+            setYears(getAllMeteorsFormattedYears(newMeteors))
             setYear(years[0])
             setMeteors(newMeteors)
             setYearsMeteors(newMeteors)
@@ -81,6 +81,7 @@ export function Home() {
                 :
                 <MeteorListComponent meteors={yearsAndMassMeteors} filterValue={massFilterValue}/>
             }
+            {/*<Autocomplete*/}
         </div>
     );
 }
