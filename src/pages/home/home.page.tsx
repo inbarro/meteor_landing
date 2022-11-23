@@ -5,6 +5,7 @@ import {FilterComponent} from "../../components/filterComponent/filter.component
 import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
 import {TitlesComponent} from "../../components/TitlesComponent/TitlesComponent"
 import NoDataMessage from '../../components/noDataMessageComponent/noDataMessage.Component'
+import {getAllMeteorsYears, pickYearMeteors} from '../../helpers'
 
 export function Home() {
 
@@ -12,12 +13,14 @@ export function Home() {
     const [yearsMeteors, setYearsMeteors] = useState([])
     const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
     const [massFilterValue, setMassFilterValue] = useState('')
+    const [years, setYears] = useState<Array<string>>([])
     const [year, setYear] = useState('')
     const [showNotFoundMessage, setShowNotFoundMessage] = useState(false)
 
     useEffect( () => {
         (async () => {
             const newMeteors = await getAllMeteors()
+            setYears(getAllMeteorsYears(newMeteors))
             setMeteors(newMeteors)
             setYearsMeteors(newMeteors)
             setMassFilterValue('')
@@ -29,7 +32,7 @@ export function Home() {
 
     useEffect( () => {
         (async () => {
-            const newMeteors = await getAllMeteorsInYear(year)
+            const newMeteors = await getAllMeteorsInYear(year) //TODO
             setYearsMeteors(newMeteors)
             setYearsAndMassMeteors(newMeteors)
 
@@ -65,7 +68,7 @@ export function Home() {
     return (
         <div>
             <TitlesComponent/>
-            <SelectComponent value={''} options={['d']} handleYearSelect={handleYearSelect}/>
+            <SelectComponent value={''} options={years} handleYearSelect={handleYearSelect}/>
             <FilterComponent value={massFilterValue} handleInput={handleFilterInput}></FilterComponent>
             { showNotFoundMessage ?
                 <NoDataMessage messageText={'The mass was not found, jumping to first-year where there is a mass that fits the criteria'}/>
