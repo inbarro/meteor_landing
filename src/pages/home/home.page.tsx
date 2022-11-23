@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {MeteorListComponent} from "../../components/meteorListComponenmt/meteorList.component";
 import {SelectComponent} from '../../components/SelectComponent/select.component'
 import {FilterComponent} from "../../components/filterComponent/filter.component";
-import {getAllMeteors, getAllMeteorsInYear, getLandingYears} from '../../api/services/meteorLanding.service'
+import {getAllMeteors, } from '../../api/services/meteorLanding.service'
 import {TitlesComponent} from "../../components/TitlesComponent/TitlesComponent"
 import NoDataMessage from '../../components/noDataMessageComponent/noDataMessage.Component'
-import {getAllMeteorsYears, pickYearMeteors} from '../../helpers'
+import {getAllMeteorsYears, pickYearMeteors, yearsSelectFormatting} from '../../helpers'
+import {option} from '../../interfaces'
 
 export function Home() {
 
@@ -14,25 +15,30 @@ export function Home() {
     const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
     const [massFilterValue, setMassFilterValue] = useState('')
     const [years, setYears] = useState<Array<string>>([])
-    const [year, setYear] = useState('')
+    const [year, setYear] = useState<string>('')
     const [showNotFoundMessage, setShowNotFoundMessage] = useState(false)
 
     useEffect( () => {
         (async () => {
             const newMeteors = await getAllMeteors()
             setYears(getAllMeteorsYears(newMeteors))
+            setYear(years[0])
             setMeteors(newMeteors)
             setYearsMeteors(newMeteors)
             setMassFilterValue('')
             setYearsAndMassMeteors(newMeteors)
-            setYear(newMeteors[0])
         })();
     },[]);
 
-
     useEffect( () => {
+        setYear(years[0])
+    }, [years])
+
+
+
+        useEffect( () => {
         (async () => {
-            const newMeteors = await getAllMeteorsInYear(year) //TODO
+            const newMeteors: any = pickYearMeteors(meteors, year)
             setYearsMeteors(newMeteors)
             setYearsAndMassMeteors(newMeteors)
 
@@ -44,7 +50,7 @@ export function Home() {
         if (newMeteors.length === 0)
         {
             let newFilteredMeteors:any = meteors.filter( (meteor: any) => ( parseInt(meteor.mass)) >= (parseInt(massFilterValue)|| 0) )
-            const newFilterYear = newFilteredMeteors[0]?.year.split("-")[0]
+            const newFilterYear = newFilteredMeteors[0]?.year
             handleYearSelect(newFilterYear)
             newFilteredMeteors = newFilteredMeteors.filter( (meteor: any) => ( meteor.year) === (newFilteredMeteors[0].year) )
             if(newFilteredMeteors.length > 0 )
@@ -61,14 +67,14 @@ export function Home() {
         setMassFilterValue(newFilerValue)
     }
 
-    const handleYearSelect = (year: string) => {
-        setYear(year)
+    const handleYearSelect = (year: option |undefined) => {
+        setYear(year?.value || '')
     }
 
     return (
         <div>
             <TitlesComponent/>
-            <SelectComponent value={''} options={years} handleYearSelect={handleYearSelect}/>
+            <SelectComponent defaultValue={yearsSelectFormatting([year])[0]} options={yearsSelectFormatting(years)} handleYearSelect={handleYearSelect}/>
             <FilterComponent value={massFilterValue} handleInput={handleFilterInput}></FilterComponent>
             { showNotFoundMessage ?
                 <NoDataMessage messageText={'The mass was not found, jumping to first-year where there is a mass that fits the criteria'}/>

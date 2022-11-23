@@ -1,40 +1,31 @@
 import './select.component.css'
-import React, {useEffect, useState} from 'react';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
-import {getLandingYears} from "../../api/services/meteorLanding.service";
 import Select from 'react-select';
 
 interface propsType {
-    value: string
-    options: Array<string>
-    handleYearSelect: (selectedOption: string) => void
+    defaultValue: option
+    options: Array<option>
+    handleYearSelect: (selectedOption: option) => void
 }
-
 
 interface option {
-    value: string
-    label: string
+    value?: string
+    label?: string
 }
+
 
 export function SelectComponent(props : propsType) {
 
-    const selectOptions: any =
-        props.options.map(item => {
-            return {value: item, label: item}
-        })
-
-
-    const handleOnSelect = (selection: option) => {
-        props.handleYearSelect(selection.value)
+    const handleOnSelect = (event: any) => {
+        props.handleYearSelect(event)
     }
 
     return (
         <div className={'wrapper'}>
             <div className={'filterTitle'}>Filter By Year</div>
             <Select
-                value={props.value}
-                options={selectOptions}
-                onChange={() => handleOnSelect}
+                defaultValue={props.defaultValue}
+                options={props.options}
+                onChange={handleOnSelect}
             />
         </div>
     );

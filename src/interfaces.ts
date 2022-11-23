@@ -21,3 +21,8 @@ interface Coordinates {
     0: number
     1: number
 }
+
+export interface option {
+    value?: string
+    label?: string
+}
