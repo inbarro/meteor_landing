@@ -8,7 +8,7 @@ export function MeteorComponent(props : any) {
             <div className={'meteor-card'}>
                 <div>Name : {meteor.name}</div>
                 <img alt='.' src={require('../../DCIM/MeteorImage.png')}/>
-                <div>Year : {meteor.year.split("-")[0]}</div>
+                <div>Year : {meteor.year?.split("-")[0]}</div>
                 <div>Mass : {meteor.mass}</div>
 
             </div>

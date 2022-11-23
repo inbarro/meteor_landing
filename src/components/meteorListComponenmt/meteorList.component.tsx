@@ -1,5 +1,5 @@
-import {MeteorComponent} from "../../components/MeteorComponent/meteor.component";
-import './MeteorListComponenmt.css'
+import {MeteorComponent} from "../meteorComponent/meteor.component";
+import './meteorListComponenmt.css'
 
 export function MeteorListComponent(props: any) {
     const meteors = props.meteors
@@ -10,7 +10,11 @@ export function MeteorListComponent(props: any) {
                 <div className={'secondTitle'}>Here Are a few:</div>
             </div>
             <div className={'meteor-list'}>
-                    {meteors.map((meteor: any) => <MeteorComponent meteor={meteor}/>)}
+                {meteors.map((meteor: any) =>
+                    <MeteorComponent
+                        key={meteor.id}
+                        meteor={meteor}/>
+                )}
             </div>
         </div>
     );
