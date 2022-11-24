@@ -1,6 +1,21 @@
+
 export interface meteorData  {
     name: string
-    id:	number
+    id:	string
+    nametype: string
+    recclass: string
+    mass: number
+    fall: string
+    year: YearObject
+    reclat: number
+    reclong: number
+    geolocation: Geolocation
+}
+
+
+export interface rawMeteorData {
+    name: string
+    id:	string
     nametype: string
     recclass: string
     mass: number
@@ -10,6 +25,7 @@ export interface meteorData  {
     reclong: number
     geolocation: Geolocation
 }
+
 
 interface Geolocation {
     type: string
@@ -22,19 +38,16 @@ interface Coordinates {
     1: number
 }
 
+
 export interface MeteorListComponentProps {
     meteors: Array<meteorData>
     filterValue: string
 }
 
-export interface SelectComponentprops {
-    defaultValue: option
-    options: Array<option>
-    handleYearSelect: (selectedOption: option) => void
+
+export interface YearObject {
+    id: string
+    name: string
 }
 
-export interface option {
-    value?: string
-    label?: string
-}
 
