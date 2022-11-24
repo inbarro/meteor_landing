@@ -12,7 +12,7 @@ export function Home() {
 
     const [meteors, setMeteors] = useState<Array<meteorData>>([])
     const [yearsMeteors, setYearsMeteors] = useState([])
-    const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
+    const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState<Array<meteorData>>([])
     const [massFilterValue, setMassFilterValue] = useState('')
     const [years, setYears] = useState<Array<any>>([])
     const [year, setYear] = useState<YearObject>({name: '', id:''})
@@ -38,22 +38,28 @@ export function Home() {
             const newMeteors: any = pickYearMeteors(meteors, year)
             setYearsMeteors(newMeteors)
             setYearsAndMassMeteors(newMeteors)
+            setShowNotFoundMessage(false)
     },[year]);
 
 
     useEffect( () => {
-        if(meteors) {
+        if(meteors&& massFilterValue) {
             const newMeteors = yearsMeteors.filter((meteor: any) => (parseInt(meteor.mass)) >= (parseInt(massFilterValue) || 0))
             if (newMeteors.length === 0) {
-                let newFilteredMeteors: any = meteors.filter((meteor: any) => (parseInt(meteor.mass)) >= (parseInt(massFilterValue) || 0))
+                let newFilteredMeteors: Array<meteorData> = meteors.filter((meteor: any) => (parseInt(meteor.mass)) >= (parseInt(massFilterValue) || 0))
                 const newFilterYear = newFilteredMeteors[0]?.year
                 handleYearSelect(newFilterYear)
-                newFilteredMeteors = newFilteredMeteors.filter((meteor: any) => (meteor.year) === (newFilteredMeteors[0].year))
-                if (newFilteredMeteors.length > 0)
+                newFilteredMeteors = newFilteredMeteors.filter((meteor: any) => (meteor.year.name) === (newFilteredMeteors[0].year.name))
+                if (newFilteredMeteors.length > 0) {
+                    setShowNotFoundMessage(false)
+                } else {
                     setShowNotFoundMessage(true)
+                    setYearsAndMassMeteors(meteors)
+                }
                 setYearsAndMassMeteors(newFilteredMeteors)
             } else {
                 setYearsAndMassMeteors(newMeteors)
+                setShowNotFoundMessage(false)
             }
         }
 

@@ -7,8 +7,8 @@ export function MeteorListComponent(props: MeteorListComponentProps) {
     return (
         <div>
             <div className={'titles'}>
-                <div className={'mainTitle'}>We found {meteors.length} meteors!</div>
-                <div className={'secondTitle'}>Here Are a few:</div>
+                {meteors.length > 0 && <div className={'mainTitle'}>We found {meteors.length} meteors!</div>}
+                {meteors.length > 0 && <div className={'secondTitle'}>Here Are a few:</div>}
             </div>
             <div className={'meteor-list'}>
                 {meteors.map((meteor: any) =>
