@@ -22,7 +22,19 @@ interface Coordinates {
     1: number
 }
 
+export interface MeteorListComponentProps {
+    meteors: Array<meteorData>
+    filterValue: string
+}
+
+export interface SelectComponentprops {
+    defaultValue: option
+    options: Array<option>
+    handleYearSelect: (selectedOption: option) => void
+}
+
 export interface option {
     value?: string
     label?: string
 }
+

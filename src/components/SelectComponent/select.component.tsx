@@ -1,19 +1,8 @@
 import './select.component.css'
 import Select from 'react-select';
+import {SelectComponentprops} from '../../interfaces'
 
-interface propsType {
-    defaultValue: option
-    options: Array<option>
-    handleYearSelect: (selectedOption: option) => void
-}
-
-interface option {
-    value?: string
-    label?: string
-}
-
-
-export function SelectComponent(props : propsType) {
+export function SelectComponent(props : SelectComponentprops) {
 
     const handleOnSelect = (event: any) => {
         props.handleYearSelect(event)

@@ -1,7 +1,8 @@
 import {MeteorComponent} from "../meteorComponent/meteor.component";
 import './meteorListComponenmt.css'
+import {MeteorListComponentProps} from '../../interfaces'
 
-export function MeteorListComponent(props: any) {
+export function MeteorListComponent(props: MeteorListComponentProps) {
     const meteors = props.meteors
     return (
         <div>

@@ -1,16 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import {MeteorListComponent} from "../../components/meteorListComponenmt/meteorList.component";
 import {SelectComponent} from '../../components/SelectComponent/select.component'
+import {YearFilterComponent} from '../../components/yearFilterComponent/yearFilter.component'
 import {FilterComponent} from "../../components/filterComponent/filter.component";
 import {getAllMeteors, } from '../../api/services/meteorLanding.service'
 import {TitlesComponent} from "../../components/TitlesComponent/TitlesComponent"
 import NoDataMessage from '../../components/noDataMessageComponent/noDataMessage.Component'
 import {getAllMeteorsFormattedYears, pickYearMeteors, yearsSelectFormatting} from '../../helpers'
-import {option} from '../../interfaces'
-
+import {option, meteorData} from '../../interfaces'
 export function Home() {
 
-    const [meteors, setMeteors] = useState([])
+    const [meteors, setMeteors] = useState<Array<meteorData>>([])
     const [yearsMeteors, setYearsMeteors] = useState([])
     const [yearsAndMassMeteors, setYearsAndMassMeteors] = useState([])
     const [massFilterValue, setMassFilterValue] = useState('')
@@ -74,14 +74,13 @@ export function Home() {
     return (
         <div>
             <TitlesComponent/>
-            <SelectComponent defaultValue={yearsSelectFormatting([year])[0]} options={yearsSelectFormatting(years)} handleYearSelect={handleYearSelect}/>
+            <YearFilterComponent years={years} meteors= {meteors} handleYearSelect={handleYearSelect}/>
             <FilterComponent value={massFilterValue} handleInput={handleFilterInput}></FilterComponent>
             { showNotFoundMessage ?
                 <NoDataMessage messageText={'The mass was not found, jumping to first-year where there is a mass that fits the criteria'}/>
                 :
                 <MeteorListComponent meteors={yearsAndMassMeteors} filterValue={massFilterValue}/>
             }
-            {/*<Autocomplete*/}
         </div>
     );
 }
